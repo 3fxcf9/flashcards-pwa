@@ -1,6 +1,8 @@
 {
     "short_name": "Flashcards",
     "name": "FSRS Flashcards",
+    "scope": "/flashcards-pwa/",
+    "start_url": "/flashcards-pwa/",
     "icons": [
         {
             "src": "/icons/icon-192.png",
@@ -13,7 +15,6 @@
             "type": "image/png"
         }
     ],
-    "start_url": ".",
     "display": "standalone",
     "theme_color": "#cdd6f4",
     "background_color": "#11111b"
