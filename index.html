@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/icons/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      href="/icons/favicon.svg"
+      type="image/svg+xml"
+      sizes="any"
+    />
+    <link rel="icon" href="/icons/favicon.ico" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.css"
+      integrity="sha384-ixaSnplTDv2MYsy2uQQYNfJntka248YDNh+vPpM26DaSYPAqCFezrAYg5GmnreAg"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.js"
+      integrity="sha384-ibfJ3XzJyI5mxPT1i79cQwceSc76HP0ERPNjXKOsBy/cuesReQSc43sP5173U/S1"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>FSRS flashcards</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>FSRS flashcards</h1>
+
+      <div id="status">Loading…</div>
+      <div id="error" class="hidden"></div>
+
+      <!-- Home -->
+      <section id="home" class="hidden">
+        <div id="summary"></div>
+
+        <button id="start-button">Start review</button>
+
+        <div class="toolbar">
+          <button id="download-button">Download FSRS data</button>
+
+          <button id="reload-button">Reload cards</button>
+        </div>
+      </section>
+
+      <!-- Review -->
+      <section id="review" class="hidden">
+        <div id="progress"></div>
+
+        <div id="card">
+          <div id="card-front"></div>
+          <div id="card-back" class="hidden"></div>
+        </div>
+
+        <button id="reveal">Show answer</button>
+
+        <div id="ratings" class="hidden">
+          <button data-rating="1">
+            Again
+            <small id="again-interval"></small>
+          </button>
+          <button data-rating="2">
+            Hard
+            <small id="hard-interval"></small>
+          </button>
+          <button data-rating="3">
+            Good
+            <small id="good-interval"></small>
+          </button>
+          <button data-rating="4">
+            Easy
+            <small id="easy-interval"></small>
+          </button>
+        </div>
+      </section>
+
+      <!-- Done -->
+      <section id="done" class="hidden">
+        <h2>Review complete</h2>
+
+        <p id="done-message"></p>
+
+        <button id="done-home">Back</button>
+      </section>
+    </main>
+
+    <script type="module" src="/js/main.js"></script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").then(
+          (registration) => {
+            console.log("SW registration OK");
+          },
+          (error) => {
+            console.error("SW registration error: ", error);
+          },
+        );
+      }
+
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().then((persistent) => {
+          if (persistent) {
+            console.log("Persistent storage setup OK");
+          } else {
+            console.log("Persistent storage setup failed");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

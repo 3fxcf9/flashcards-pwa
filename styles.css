@@ -1,0 +1,203 @@
+body {
+  --bg-color: #11111b;
+  --bg-greyed: #45475a23;
+  --text-color: #cdd6f4;
+  --subtext-color: #45475a;
+  --red-color: #ffa3a3;
+  --accent-color: #89b4fa;
+  --on-accent-color: var(--bg-color);
+  --links-color: #89b4fa;
+  --code-bg-color: #ffffff0a;
+  --code-color: #666;
+  --input-background-color: #1e1f2c;
+}
+
+:root {
+  color-scheme: light dark;
+  font-family: inter, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+main {
+  width: min(760px, calc(100% - 32px));
+  margin: 40px auto;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 10px 16px;
+  background: var(--bg-greyed);
+  color: var(--text-color);
+  border-color: var(--subtext-color);
+}
+
+button:hover:not(:disabled) {
+  background: var(--input-background-color);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#status {
+  margin-bottom: 20px;
+  color: #aaa;
+}
+
+#error {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #933;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  background: #351818;
+  color: #ff9999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#home {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#home button {
+  align-self: flex-start;
+}
+
+#review {
+  text-align: center;
+}
+
+#progress {
+  color: var(--subtext-color);
+  margin-bottom: 16px;
+}
+
+#card {
+  min-height: 280px;
+  padding: 32px;
+  margin-bottom: 20px;
+  border: 1px solid var(--subtext-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-greyed);
+}
+
+#card-front,
+#card-back {
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+#card-front {
+  font-size: 1.5rem;
+}
+
+#card-back {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--subtext-color);
+  font-size: 1.2rem;
+}
+
+/*
+     * HTML inside cards is allowed.
+     *
+     * These rules are only layout helpers; the actual HTML supplied by
+     * flashcards.json is inserted with innerHTML.
+     */
+#card-front img,
+#card-back img {
+  max-width: 100%;
+  height: auto;
+}
+
+#card-front table,
+#card-back table {
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+#card-front td,
+#card-front th,
+#card-back td,
+#card-back th {
+  border: 1px solid #666;
+  padding: 4px 8px;
+}
+
+#reveal {
+  margin-bottom: 20px;
+}
+
+#ratings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+#ratings button {
+  min-height: 52px;
+}
+
+#ratings small {
+  display: block;
+  color: var(--subtext-color);
+  margin-top: 3px;
+}
+
+#done {
+  text-align: center;
+}
+
+#done p {
+  color: #aaa;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin-top: 20px;
+  }
+
+  #ratings {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #card {
+    min-height: 220px;
+    padding: 24px;
+  }
+}
