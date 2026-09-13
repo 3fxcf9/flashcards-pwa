@@ -62,7 +62,7 @@ self.addEventListener("fetch", (event) => {
   }
   const url = new URL(request.url);
 
-  if (url.pathname === BASE + "/flashcards.json") {
+  if (url.pathname.endsWith("flashcards.json")) {
     event.respondWith(networkFirst(request));
     return;
   }
@@ -72,30 +72,27 @@ self.addEventListener("fetch", (event) => {
 
 async function networkFirst(request) {
   try {
-    console.log(`[SW] ${request.pathname}: trying network`);
+    // console.log(`[SW] ${request.pathname}: trying network`);
 
     const response = await fetch(request);
 
-    console.log(`[SW] ${request.pathname}: network response:`, response.status);
+    // console.log(`[SW] ${request.pathname}: network response:`, response.status);
 
     if (response.ok) {
       const cache = await caches.open(CACHE_NAME);
       await cache.put(request, response.clone());
-      console.log(`[SW] ${request.pathname}: cache updated`);
+      // console.log(`[SW] ${request.pathname}: cache updated`);
     }
 
     return response;
   } catch (error) {
-    console.log(
-      `[SW] ${request.pathname}: network failed, trying cache`,
-      error,
-    );
+    // console.log(`[SW] ${request.pathname}: network failed, trying cache`, error);
     const cached = await caches.match(request);
     if (cached) {
-      console.log(`[SW] ${request.pathname}: using cached version`);
+      // console.log(`[SW] ${request.pathname}: using cached version`);
       return cached;
     }
-    console.log(`[SW] ${request.pathname}: no cached version available`);
+    // console.log(`[SW] ${request.pathname}: no cached version available`);
 
     return new Response(
       JSON.stringify({
@@ -116,23 +113,23 @@ async function cacheFirst(request) {
   const cached = await caches.match(request);
 
   if (cached) {
-    console.log("[SW] Cache hit:", request.url);
+    // console.log("[SW] Cache hit:", request.url);
     return cached;
   }
 
-  console.log("[SW] Cache miss:", request.url);
+  // console.log("[SW] Cache miss:", request.url);
   try {
     const response = await fetch(request);
-    console.log("[SW] Network response:", request.url, response.status);
+    // console.log("[SW] Network response:", request.url, response.status);
 
     if (response.ok) {
       const cache = await caches.open(CACHE_NAME);
       await cache.put(request, response.clone());
-      console.log("[SW] Cached:", request.url);
+      // console.log("[SW] Cached:", request.url);
     }
     return response;
   } catch (error) {
-    console.log("[SW] Network failed:", request.url, error);
+    // console.log("[SW] Network failed:", request.url, error);
     return new Response("Offline", {
       status: 503,
       statusText: "Offline",
