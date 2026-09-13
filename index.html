@@ -100,14 +100,18 @@
 
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js").then(
-          (registration) => {
-            console.log("SW registration OK", registration);
-          },
-          (error) => {
-            console.error("SW registration error: ", error);
-          },
-        );
+        navigator.serviceWorker
+          .register("./sw.js", {
+            scope: "./",
+          })
+          .then(
+            (registration) => {
+              console.log("SW registration OK", registration);
+            },
+            (error) => {
+              console.error("SW registration error:", error);
+            },
+          );
       }
 
       if (navigator.storage && navigator.storage.persist) {

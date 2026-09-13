@@ -1,15 +1,17 @@
 const CACHE_NAME = "flashcards-v1";
 
+const BASE = new URL("./", self.location).pathname;
+
 const STATIC_ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/js/due.js",
-  "/js/loader.js",
-  "/js/main.js",
-  "/js/md5.js",
-  "/js/storage.js",
-  "/icons/favicon.ico",
+  BASE,
+  BASE + "index.html",
+  BASE + "styles.css",
+  BASE + "js/due.js",
+  BASE + "js/loader.js",
+  BASE + "js/main.js",
+  BASE + "js/md5.js",
+  BASE + "js/storage.js",
+  BASE + "icons/favicon.ico",
 ];
 
 self.addEventListener("install", (event) => {
@@ -49,7 +51,7 @@ self.addEventListener("fetch", (event) => {
   }
   const url = new URL(request.url);
 
-  if (url.pathname === "/flashcards.json") {
+  if (url.pathname === BASE + "/flashcards.json") {
     event.respondWith(networkFirst(request));
     return;
   }
