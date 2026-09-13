@@ -15,9 +15,20 @@ const STATIC_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+  console.log("[SW] Installing", CACHE_NAME);
+
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {
-      await cache.addAll(STATIC_ASSETS);
+      for (const asset of STATIC_ASSETS) {
+        try {
+          console.log("[SW] Caching:", asset);
+          await cache.add(asset);
+          console.log("[SW] Cached:", asset);
+        } catch (error) {
+          console.error("[SW] FAILED:", asset, error);
+          throw error;
+        }
+      }
       await self.skipWaiting();
     }),
   );
