@@ -100,9 +100,9 @@
 
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js").then(
+        navigator.serviceWorker.register("./sw.js").then(
           (registration) => {
-            console.log("SW registration OK");
+            console.log("SW registration OK", registration);
           },
           (error) => {
             console.error("SW registration error: ", error);
